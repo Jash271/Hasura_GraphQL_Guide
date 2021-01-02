@@ -1,0 +1,26 @@
+service: post-serverless
+
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: 'dev'
+  region: ap-south-1
+ 
+
+functions:
+  app:
+    handler: server.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+
+plugins:
+  - serverless-offline
